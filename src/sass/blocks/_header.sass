@@ -1,0 +1,62 @@
+.header 
+        
+    width: 100%
+    min-height: 50px
+    position: absolute
+    top: 0
+    left: 0
+    z-index: 2
+    padding: 20px
+    box-sizing: border-box
+
+    &--center
+        text-align: center
+
+    &__left 
+        position: absolute
+        left: 30px
+        top: 30px
+    
+    &__menu
+        background: transparent
+        border: 0
+        cursor: pointer
+        position: fixed
+        &-img
+            width: 35px
+            .rect-1, .rect-2, .rect-3
+                transition: .2s ease-in
+                transform: scaleX(1)
+    &:hover
+        .header__menu-img
+            .rect-1
+                transform: scaleX(0.8)
+            .rect-2
+                transform: scaleX(1.6)
+            .rect-3
+                transform: scaleX(0.6)
+
+        &-label
+            color: #293d60
+            letter-spacing: 2px
+            margin-top: 5px
+            font-size: 12px
+
+    &__brand
+        &-img
+            height: 50px
+            width: auto
+
+    &__block
+
+        &--left
+            float: left
+
+        &--right
+            float: right
+
+        &--center
+            margin: auto
+
+.customize-support .header
+    top: 32px

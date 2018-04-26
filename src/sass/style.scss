@@ -1,0 +1,44 @@
+/*
+Theme Name: FCP Digital - 1
+Theme URI: https://wordpress.org/themes/twentyfifteen/
+Author: SolalDR
+Author URI: http://solaldussout-revel.com/
+Description: Our 2015 default theme is clean, blog-focused, and designed for clarity. Twenty Fifteen's simple, straightforward typography is readable on a wide variety of screen sizes, and suitable for multiple languages. We designed it using a mobile-first approach, meaning your content takes center-stage, regardless of whether your visitors arrive by smartphone, tablet, laptop, or desktop computer.
+Version: 1.0
+Tags: sass
+Text Domain: fcp-digital-1
+
+This theme, like WordPress, is licensed under the GPL.
+Use it to make something cool, have fun, and share what you've learned with others.
+*/
+
+@import "core/grid";
+@import "core/variable";
+@import "core/mixin";
+@import "core/scaffold";
+@import "core/font";
+@import "core/reset";
+
+
+@import "blocks/menu";
+@import "blocks/section";
+@import "blocks/title";
+@import "blocks/scroll-btn";
+@import "blocks/wrapper";
+@import "blocks/article";
+@import "blocks/blockquote";
+@import "blocks/carousel";
+@import "blocks/btn";
+@import "blocks/thumbnails";
+@import "blocks/animate";
+@import "blocks/header";
+@import "blocks/footer";
+@import "blocks/paralax";
+@import "blocks/error-404";
+
+@import "overrides/contact-form-7";
+
+
+@import "post";
+@import "home";
+

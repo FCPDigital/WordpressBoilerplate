@@ -1,0 +1,20 @@
+// Entrer votre charte graphique
+$color-primary: #293d60;
+$color-secondary: rgb(249, 220, 214);
+$color-dark: #333;
+$color-light: #F8F8F8;
+
+
+$breakpoints: ( xl: 1360px, l: 1080px, m: 920px, s: 768px, xs: 360px );
+
+// Entrez vos fonts
+$font-1: "Gotham";
+$font-2: "Tahu";
+
+$font-normal: 1em;
+
+// Quelques dimmensions récurrentes
+$wrapper: 1080px;
+$small-pad: 16px;
+$medium-pad: 32px;
+$big-pad: 64px;

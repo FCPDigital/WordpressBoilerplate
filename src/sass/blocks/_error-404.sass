@@ -1,0 +1,44 @@
+.error-404
+    
+    &__header
+
+    &__title
+        font-size: 5em
+        margin-bottom: 0
+
+    &__subtitle
+        text-transform: uppercase
+        font-weight: bold
+        color: $color-primary
+        font-size: 1.3em
+        letter-spacing: 5px
+        opacity: 0.8
+
+    &__search
+        margin-top: 30px
+
+        .searchform
+            .screen-reader-text
+                display: block
+                text-align: center
+                margin-bottom: $small-pad
+
+            input
+                float: left
+                padding: 7px $small-pad
+                border: 2px solid $color-primary    
+
+                &[type="submit"]
+                    border-left: 0
+                    background-color: $color-primary
+                    color: white
+                    text-transform: uppercase
+                    letter-spacing: 1px
+                    font-weight: bold
+                    transition: .4s
+                    cursor: pointer
+                    &:hover
+                        background-color: white
+                        color: $color-primary
+
+            

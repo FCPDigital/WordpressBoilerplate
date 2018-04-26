@@ -1,0 +1,39 @@
+.wpcf7
+    &-form-control
+    
+    &-textarea
+        border: 0 !important
+        border-bottom: 1px solid $color-dark !important
+
+.mdc
+    &-textfield
+        &::after
+            background-color: $color-dark !important
+
+// Label
+#cf7md-form 
+    .mdc-textfield--invalid:not(.mdc-textfield--focused) .mdc-textfield__label
+        color: black !important
+        &::after
+            color: inherit !important
+    
+    .mdc-textfield--focused
+        .mdc-textfield__label
+            color: black
+            &::after
+                color: black !important
+        
+    .cf7md-submit
+        text-align: center
+        .wpcf7-submit.mdc-button--primary
+            background-color: white
+            color: black
+            letter-spacing: 1px
+            border: 2px solid black
+            border-radius: 0
+            box-shadow: none
+            box-sizing: content-box
+            transition: .4s
+            &:hover
+                background-color: black
+                color: white

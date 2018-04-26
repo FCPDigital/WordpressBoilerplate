@@ -1,0 +1,103 @@
+.menu
+    position: fixed
+    top: 0
+    left: 0
+    width: 100%
+    min-height: 100vh
+    background-color: rgba(41,61,92, 0.95)
+    z-index: 999
+    transition: .5s ease-in-out
+
+    &__brand
+        position: absolute
+        top: 30px
+        text-align: center
+        left: 50%
+        transform: translateX(-50%)
+        &-img
+            height: 50px
+
+    &--hidden
+        top: -100vh
+
+
+    .page_item
+        font-family: $font-2
+        color: white
+        text-align: center
+        font-size: 3em
+        opacity: 0.4
+        transition: .4s
+        margin-bottom: 35px
+        a
+            color: white 
+            text-decoration: none
+        &:hover, &.current_page_item
+            opacity: 1
+    
+    &__main
+        display: flex
+        justify-content: center
+        flex-direction: column
+        height: 100vh
+        text-align: center
+
+    &__close
+        position: absolute
+        top: 30px
+        left: 30px
+        height: 50px
+        width: 50px
+        background: transparent
+        border: 0
+        color: transparent
+        cursor: pointer
+        animation:
+            duration: .2s
+            iteration-count: infinite
+       
+        &::before, &::after
+            content: ""
+            display: block
+            position: absolute
+            transform: translateX(-50%)
+            top: 50%
+            left: 50%
+            transform-origin: 50%
+            height: 2px 
+            width: 40px
+            background-color: white
+            transition: .2s
+           
+
+        &::before
+            transform: translateX(-50%) rotate(45deg)  
+        
+        &::after
+            transform: translateX(-50%) rotate(-45deg)
+
+        &:hover
+            animation-name: wooble
+
+            &::before, &::after
+                width: 30px
+               
+
+@keyframes wooble
+    0%
+        transform: rotate(0)
+    25%
+        transform: rotate(20deg)
+    75%
+        transform: rotate(-20deg)
+    
+
+
+@keyframes wooble-after
+
+
+.customize-support
+    .menu__close
+        top: 62px
+    .menu__brand
+        top: 52px

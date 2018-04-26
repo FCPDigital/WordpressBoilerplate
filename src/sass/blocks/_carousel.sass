@@ -1,0 +1,39 @@
+.carousel
+    &__header
+
+        display: flex
+        justify-content: space-between
+        flex-wrap: wrap
+        padding-bottom: 30px
+        border-bottom: 1px solid $color-primary
+        margin-bottom: 70px
+
+        &-item
+            text-decoration: none
+            min-width: 150px
+            transition: .4s ease-in
+            opacity: 0.5
+            flex: 1
+            margin-top: 20px
+            &--active
+                opacity: 1
+    
+    &__body
+        &-item
+            transition: .3s ease-in-out
+            &--left
+                transform: translateX(-50px)
+            &--right
+                transform: translateX(50px)
+            
+            &--visible
+                display: block
+                opacity: 1
+            
+            &--hidding
+                opacity: 0
+                display: block
+
+            &--hidden
+                display: none
+    
