@@ -24,6 +24,7 @@ if ( ! function_exists( 'get_field' ) ) {
 
 
 
+
 if(function_exists("register_field_group"))
 {
 	register_field_group(array (
@@ -137,9 +138,24 @@ function theme_setup() {
 		'aside', 'image', 'video', 'quote', 'link', 'gallery', 'status', 'audio', 'chat'
 	) );
 
+
+
 }
 
 add_action( 'after_setup_theme', 'theme_setup' );
+
+
+function theme_custom_logo_setup() {
+  $defaults = array(
+      'height'      => 100,
+      'width'       => 400,
+      'flex-height' => true,
+      'flex-width'  => true,
+      'header-text' => array( 'site-title', 'site-description' ),
+  );
+  add_theme_support( 'custom-logo', $defaults );
+}
+add_action( 'after_setup_theme', 'theme_custom_logo_setup' );
 
 
 function theme_scripts() {

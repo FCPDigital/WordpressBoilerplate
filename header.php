@@ -26,9 +26,18 @@
 	</div>
 	<div class="header__brand header__block--center">
 	<?php 
+
+
 		$custom_logo_id = get_theme_mod( 'custom_logo' );
-		$image = wp_get_attachment_image_src( $custom_logo_id , 'full' ); ?>
-		<a href="<?php echo get_site_url(); ?>"> <img class="header__brand-img" src="<?php echo $image[0]; ?>" alt=""> </a>
+		$image = wp_get_attachment_image_src( $custom_logo_id , 'full' ); 
+		if( is_front_page() ){
+			echo '<h1><img class="header__brand-img" src="'.$image[0].'" alt="'.get_bloginfo( 'name' ).'"></h1>';
+		} else {
+			echo '<a href="'.get_site_url().'"><img class="header__brand-img" src="'.$image[0].'" alt="'.get_bloginfo( 'name' ).'"></a>';  
+		}
+		
+		?>
+
 		
 	</div>
 </header>
