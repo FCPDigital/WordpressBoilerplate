@@ -1,0 +1,50 @@
+{
+  "name": "wordpress-boilerplate-gulp",
+  "version": "1.0.0",
+  "description": "A simple boilerplate using gulp to manage babel & sass ",
+  "main": "js/functions.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FCPDigital/WordpressBoilerplate.git"
+  },
+  "keywords": [
+    "Babel",
+    "Wordpress",
+    "Sass",
+    "Bem"
+  ],
+  "author": "SolalDR",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/FCPDigital/WordpressBoilerplate/issues"
+  },
+  "homepage": "https://github.com/FCPDigital/WordpressBoilerplate#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-es2015": "latest",
+    "babel-preset-stage-2": "latest",
+    "gulp": "latest",
+    "gulp-autoprefixer": "latest",
+    "gulp-babel": "^7.0.1",
+    "gulp-cssbeautify": "latest",
+    "gulp-csscomb": "latest",
+    "gulp-csso": "latest",
+    "gulp-less": "latest",
+    "gulp-load-plugins": "latest",
+    "gulp-rename": "latest",
+    "gulp-sass": "^4.0.1",
+    "babel-plugin-transform-runtime": "^6.0.0",
+    "browserify": "latest",
+    "watchify": "latest",
+    "gulp-notify": "latest",
+    "vinyl-source-stream": "latest",
+    "vinyl-buffer": "latest",
+    "babelify": "latest",
+    "browser-sync": "latest",
+    "gulp-sourcemaps": "latest"
+  }
+}

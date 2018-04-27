@@ -162,7 +162,7 @@ function theme_scripts() {
 
 	// Load our main stylesheet.
 	wp_enqueue_style( 'twentyfifteen-style', get_stylesheet_uri() );
-	wp_enqueue_script( 'twentyfifteen-script', get_template_directory_uri() . '/js/functions.js', array( 'jquery' ), '20150330', true );
+	wp_enqueue_script( 'twentyfifteen-script', get_template_directory_uri() . '/js/index.js', array( 'jquery' ), '20150330', true );
 
 }
 add_action( 'wp_enqueue_scripts', 'theme_scripts' );
