@@ -2,17 +2,32 @@
 
 A Wordpress Theme.
 
-This theme used BEM (Block Element Modifier) standard to organize content. 
-The assets are compiled with gulp.
+## What Is It
 
-## Run 
+A wordpress theme working with cool techno 
+- Babel (with babelify)
+- Browserify
+- Gulp
+- Sass 
 
-Launch Gulp watching (Javascript & Css) 
+## How to use 
+
+Clone the repository in your `themes` folder
 ```
-gulp watch
+git clone https://github.com/FCPDigital/WordpressBoilerplate.git
 ```
 
-Or just launch sass watching
+Simply install package 
 ```
-sass --watch src/sass/style.scss:style.css
+npm install
+```
+
+Launch gulp default command 
+```
+gulp
+```
+
+Maybe you need to install `gulp` with `global` tag
+```
+npm install --global gulp
 ```
