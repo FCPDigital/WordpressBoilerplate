@@ -87,8 +87,8 @@ $base_post = get_post();
         </div>
 
     </div>
-    <div class="section min-h-window center-y">
 
+    <div id="anchor-3" class="section min-h-window center-y">
         <?php $post = $base_post; ?>
         <?php if ( get_field("subtitle-2") ) { ?>
             <h2 class="title-2"><?php echo get_field("subtitle-2"); ?></h2>
@@ -99,13 +99,12 @@ $base_post = get_post();
         </div>
     </div>
 
-    <div class="section bg-color-secondary">
+    <div id="anchor-4" class="section bg-color-secondary">
         <div class="article">
-        <div class="center-x article">
-        <?php echo get_field("additionnal_content"); ?>
+            <div class="center-x article">
+                <?php echo get_field("additionnal_content"); ?>
+            </div>
         </div>
-        </div>
-        
     </div>
 
     <?php endwhile; ?>

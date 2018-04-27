@@ -167,3 +167,36 @@ function the_burger() {
 	<rect class="rect-3" y="18.67" width="34" height="5" rx="2.5" ry="2.5" fill="#293d60"/>
 	</svg>';
 }
+
+
+/******************* SHORTCODE ********************/
+
+function button_shortcode( $atts, $content ){
+	$a = shortcode_atts( array(
+        'href' => null,
+        'class' => '',
+        'id' => '',
+        'center' => false,
+        'content' => "Envoyer"
+  ), $atts );
+
+	$content = "";
+
+	if($a['center']){
+		$content .="<div class='center-x'>";
+	}
+	if($a['href']){
+		$content .= "<a href='".$a['href']."' class='btn ".$a['class']."' id='".$a["id"]."'>".$a["content"]."</a>";
+	} else {
+		$content .= "<button class='btn ".$a['class']."' id='".$a["id"]."'>".$a["content"]."</button>";
+	}
+
+	if($a['center']){
+		$content.= "</div>";
+	}
+
+	return $content;
+}
+
+
+add_shortcode( 'button', 'button_shortcode' );

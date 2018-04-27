@@ -7567,7 +7567,9 @@ strong {
   min-height: 100vh;
   background-color: rgba(41, 61, 92, 0.95);
   z-index: 999;
-  transition: 0.5s ease-in-out; }
+  transition: 0.5s ease-in-out;
+  padding-top: 50px;
+  transform: translateY(0); }
   .menu__brand {
     position: absolute;
     top: 30px;
@@ -7577,8 +7579,8 @@ strong {
     .menu__brand-img {
       height: 50px; }
   .menu--hidden {
-    top: -100vh; }
-  .menu .page_item {
+    transform: translateY(-100%); }
+  .menu .page_item, .menu .menu-item {
     font-family: "Tahu";
     color: white;
     text-align: center;
@@ -7586,10 +7588,10 @@ strong {
     opacity: 0.4;
     transition: 0.4s;
     margin-bottom: 35px; }
-    .menu .page_item a {
+    .menu .page_item a, .menu .menu-item a {
       color: white;
       text-decoration: none; }
-    .menu .page_item:hover, .menu .page_item.current_page_item {
+    .menu .page_item:hover, .menu .menu-item:hover {
       opacity: 1; }
   .menu__main {
     display: flex;
@@ -7643,6 +7645,10 @@ strong {
 .customize-support .menu__brand {
   top: 52px; }
 
+@media (max-width: 768px) {
+  .menu .page_item, .menu .menu-item {
+    margin-bottom: 25px;
+    font-size: 2em; } }
 .section {
   background-size: cover;
   background-repeat: no-repeat;

@@ -7,6 +7,8 @@
     background-color: rgba(41,61,92, 0.95)
     z-index: 999
     transition: .5s ease-in-out
+    padding-top: 50px
+    transform: translateY(0)
 
     &__brand
         position: absolute
@@ -18,10 +20,10 @@
             height: 50px
 
     &--hidden
-        top: -100vh
+        transform: translateY(-100%)
 
 
-    .page_item
+    .page_item, .menu-item
         font-family: $font-2
         color: white
         text-align: center
@@ -32,7 +34,7 @@
         a
             color: white 
             text-decoration: none
-        &:hover, &.current_page_item
+        &:hover
             opacity: 1
     
     &__main
@@ -101,3 +103,10 @@
         top: 62px
     .menu__brand
         top: 52px
+
+
+@include responsive(s)
+    .menu
+        .page_item, .menu-item
+            margin-bottom: 25px
+            font-size: 2em
