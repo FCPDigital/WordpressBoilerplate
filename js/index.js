@@ -4,6 +4,78 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+var BackgroundParalax = {
+
+  update: function update(element, event) {
+    var position = offsetTop(element);
+    position.left += element.offsetWidth / 2;
+    position.top += element.offsetHeight / 2;
+
+    var intensity = {
+      left: (position.left - event.clientX) / 150,
+      top: (position.top - event.clientY) / 100
+    };
+
+    element.style.textShadow = intensity.left + "px " + intensity.top + "px 10px rgba(0, 0, 0, .5)";
+  },
+
+  updateAll: function updateAll(event) {
+    for (var i = 0; i < this.elements.length; i++) {
+      this.update(this.elements[i], event);
+    }
+  },
+
+  initEvent: function initEvent(element) {
+    var image = new Image();
+    image.src = element.style.backgroundImage.match(/url\(["']?([^"']*)["']?\)/)[1];
+
+    var ratio = element.offsetWidth / element.offsetHeight;
+    var bgRatio = image.width / image.height;
+
+    function ease(t) {
+      return -t * (t - 2.0);
+    }
+
+    window.addEventListener("resize", function () {
+      ratio = element.offsetWidth / element.offsetHeight;
+    });
+
+    element.addEventListener("mousemove", function (e) {
+      var scale = 1.3;
+      var size = ratio > bgRatio ? "130% auto" : "auto 130%";
+
+      var value = {
+        left: (e.clientX - element.offsetWidth / 2) / (element.offsetWidth / 2),
+        top: (e.clientY + window.scrollTop - element.offsetHeight / 2) / (element.offsetHeight / 2)
+      };
+
+      element.style.backgroundSize = size;
+      element.style.backgroundPosition = 50 + ease(value.left) * 1 + "%" + (50 + ease(value.top) * 1) + "%";
+    });
+  },
+
+  initEvents: function initEvents() {
+    var self = this;
+    for (var i = 0; i < this.elements.length; i++) {
+      this.initEvent(this.elements[i]);
+    }
+  },
+
+  init: function init() {
+    this.elements = document.querySelectorAll(".paralax");
+    this.initEvents();
+  }
+};
+
+exports.default = BackgroundParalax;
+
+},{}],2:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 function Carousel(element) {
   this.element = element;
   this.headItems = this.element.querySelectorAll(".carousel__header-item");
@@ -81,42 +153,52 @@ Carousel.prototype = {
 
 exports.default = Carousel;
 
-},{}],2:[function(require,module,exports){
+},{}],3:[function(require,module,exports){
 "use strict";
 
-var _carousel = require("./components/carousel.js");
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var ShadowFlow = {
 
-var _carousel2 = _interopRequireDefault(_carousel);
+  update: function update(element, event) {
+    var position = offsetTop(element);
+    position.left += element.offsetWidth / 2;
+    position.top += element.offsetHeight / 2;
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+    var intensity = {
+      left: (position.left - event.clientX) / 150,
+      top: (position.top - event.clientY) / 100
+    };
 
-var offsetTop = function offsetTop(element) {
-  var top = 0,
-      left = 0;
-  do {
-    top += element.offsetTop || 0;
-    left += element.offsetLeft || 0;
-    element = element.offsetParent;
-  } while (element);
+    element.style.textShadow = intensity.left + "px " + intensity.top + "px 10px rgba(0, 0, 0, .5)";
+  },
 
-  return {
-    top: top,
-    left: left
-  };
+  updateAll: function updateAll(event) {
+    for (var i = 0; i < this.elements.length; i++) {
+      this.update(this.elements[i], event);
+    }
+  },
+
+  initEvents: function initEvents() {
+    var self = this;
+    window.addEventListener("mousemove", self.updateAll.bind(this));
+  },
+
+  init: function init() {
+    this.elements = document.querySelectorAll(".shadow-flow");
+    this.initEvents();
+  }
 };
 
-Object.defineProperties(window, {
-  scrollTop: {
-    get: function get() {
-      return document.documentElement && document.documentElement.scrollTop || document.body.scrollTop;
-    },
-    set: function set(value) {
-      var scrollTop = document.documentElement && document.documentElement.scrollTop || document.body.scrollTop;
-      scrollTop = value;
-    }
-  }
-});
+exports.default = ShadowFlow;
 
+},{}],4:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 function Thumbnails(element) {
   this.element = element;
   this.items = element.querySelectorAll(".thumbnail");
@@ -151,23 +233,14 @@ Thumbnails.prototype = {
   }
 };
 
-function manageHomeCarousel() {
-  if (document.querySelector("#home-carousel")) {
-    var sectionCarousel = document.querySelector("#anchor-2");
+exports.default = Thumbnails;
 
-    var thumbnails = new Thumbnails(sectionCarousel.querySelector(".thumbnails"));
-    var carousel = new _carousel2.default(document.querySelector("#home-carousel"));
-    carousel.onChange = function (current, last, rank) {
-      //last.querySelector(".btn-morph-cross").click();
-      var toggler = TogglerManager.findByElement(last.querySelector(".btn-morph-cross"));
-      if (toggler && toggler.element.classList.contains("btn-morph-cross--active")) {
-        toggler.toggle();
-      }
-      thumbnails.current = rank;
-    };
-  }
-}
+},{}],5:[function(require,module,exports){
+"use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 function Toggler(element) {
   this.element = element;
   this.getTargets();
@@ -223,108 +296,85 @@ var TogglerManager = {
   }
 };
 
-var ShadowFlow = {
+exports.Toggler = Toggler;
+exports.default = TogglerManager;
 
-  update: function update(element, event) {
-    var position = offsetTop(element);
-    position.left += element.offsetWidth / 2;
-    position.top += element.offsetHeight / 2;
+},{}],6:[function(require,module,exports){
+"use strict";
 
-    var intensity = {
-      left: (position.left - event.clientX) / 150,
-      top: (position.top - event.clientY) / 100
+var _carousel = require("./components/carousel.js");
+
+var _carousel2 = _interopRequireDefault(_carousel);
+
+var _thumbnails = require("./components/thumbnails.js");
+
+var _thumbnails2 = _interopRequireDefault(_thumbnails);
+
+var _toggler = require("./components/toggler.js");
+
+var _toggler2 = _interopRequireDefault(_toggler);
+
+var _backgroundParalax = require("./components/backgroundParalax.js");
+
+var _backgroundParalax2 = _interopRequireDefault(_backgroundParalax);
+
+var _shadowFlow = require("./components/shadowFlow.js");
+
+var _shadowFlow2 = _interopRequireDefault(_shadowFlow);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var offsetTop = function offsetTop(element) {
+    var top = 0,
+        left = 0;
+    do {
+        top += element.offsetTop || 0;
+        left += element.offsetLeft || 0;
+        element = element.offsetParent;
+    } while (element);
+
+    return {
+        top: top,
+        left: left
     };
-
-    element.style.textShadow = intensity.left + "px " + intensity.top + "px 10px rgba(0, 0, 0, .5)";
-  },
-
-  updateAll: function updateAll(event) {
-    for (var i = 0; i < this.elements.length; i++) {
-      this.update(this.elements[i], event);
-    }
-  },
-
-  initEvents: function initEvents() {
-    var self = this;
-    window.addEventListener("mousemove", self.updateAll.bind(this));
-  },
-
-  init: function init() {
-    this.elements = document.querySelectorAll(".shadow-flow");
-    this.initEvents();
-  }
 };
 
-var BackgroundParalax = {
-
-  update: function update(element, event) {
-    var position = offsetTop(element);
-    position.left += element.offsetWidth / 2;
-    position.top += element.offsetHeight / 2;
-
-    var intensity = {
-      left: (position.left - event.clientX) / 150,
-      top: (position.top - event.clientY) / 100
-    };
-
-    element.style.textShadow = intensity.left + "px " + intensity.top + "px 10px rgba(0, 0, 0, .5)";
-  },
-
-  updateAll: function updateAll(event) {
-    for (var i = 0; i < this.elements.length; i++) {
-      this.update(this.elements[i], event);
+Object.defineProperties(window, {
+    scrollTop: {
+        get: function get() {
+            return document.documentElement && document.documentElement.scrollTop || document.body.scrollTop;
+        },
+        set: function set(value) {
+            var scrollTop = document.documentElement && document.documentElement.scrollTop || document.body.scrollTop;
+            scrollTop = value;
+        }
     }
-  },
-
-  initEvent: function initEvent(element) {
-    var image = new Image();
-    image.src = element.style.backgroundImage.match(/url\(["']?([^"']*)["']?\)/)[1];
-
-    var ratio = element.offsetWidth / element.offsetHeight;
-    var bgRatio = image.width / image.height;
-
-    function ease(t) {
-      return -t * (t - 2.0);
-    }
-
-    window.addEventListener("resize", function () {
-      ratio = element.offsetWidth / element.offsetHeight;
-    });
-
-    element.addEventListener("mousemove", function (e) {
-      var scale = 1.3;
-      var size = ratio > bgRatio ? "130% auto" : "auto 130%";
-
-      var value = {
-        left: (e.clientX - element.offsetWidth / 2) / (element.offsetWidth / 2),
-        top: (e.clientY + window.scrollTop - element.offsetHeight / 2) / (element.offsetHeight / 2)
-      };
-
-      element.style.backgroundSize = size;
-      element.style.backgroundPosition = 50 + ease(value.left) * 1 + "%" + (50 + ease(value.top) * 1) + "%";
-    });
-  },
-
-  initEvents: function initEvents() {
-    var self = this;
-    for (var i = 0; i < this.elements.length; i++) {
-      this.initEvent(this.elements[i]);
-    }
-  },
-
-  init: function init() {
-    this.elements = document.querySelectorAll(".paralax");
-    this.initEvents();
-  }
-};
-
-window.addEventListener("load", function () {
-  manageHomeCarousel();
-  TogglerManager.init();
-  BackgroundParalax.init();
-  ShadowFlow.init();
 });
 
-},{"./components/carousel.js":1}]},{},[2])
+function manageHomeCarousel() {
+    if (document.querySelector("#home-carousel")) {
+        var sectionCarousel = document.querySelector("#anchor-2");
+
+        var thumbnails = new _thumbnails2.default(sectionCarousel.querySelector(".thumbnails"));
+        var carousel = new _carousel2.default(document.querySelector("#home-carousel"));
+        carousel.onChange = function (current, last, rank) {
+            //last.querySelector(".btn-morph-cross").click();
+            var toggler = _toggler2.default.findByElement(last.querySelector(".btn-morph-cross"));
+            if (toggler && toggler.element.classList.contains("btn-morph-cross--active")) {
+                toggler.toggle();
+            }
+            thumbnails.current = rank;
+        };
+    }
+}
+
+window.addEventListener("load", function () {
+    manageHomeCarousel();
+    _toggler2.default.init();
+    _backgroundParalax2.default.init();
+    _shadowFlow2.default.init();
+});
+
+},{"./components/backgroundParalax.js":1,"./components/carousel.js":2,"./components/shadowFlow.js":3,"./components/thumbnails.js":4,"./components/toggler.js":5}]},{},[6])
 
 //# sourceMappingURL=index.js.map
