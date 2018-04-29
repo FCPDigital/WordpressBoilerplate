@@ -14,7 +14,8 @@ function compile(watch) {
   var bundler = watchify(
     browserify('./src/js/index.js', { debug: true })
       .transform(babel.configure({
-          presets: ["es2015"]
+          presets: ["es2015"],
+          plugins: ["transform-remove-strict-mode"]
       }))
   );
 
