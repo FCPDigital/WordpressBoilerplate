@@ -1,3 +1,5 @@
+import {offsetTop} from "./../utils/html.js"
+
 var ShadowFlow = {
 
   update: function(element, event) {

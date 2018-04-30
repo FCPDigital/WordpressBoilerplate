@@ -1,3 +1,4 @@
+import requestAnimationFrame from "./../utils/raf.js"
 
 var BackgroundParalax = {
 
@@ -26,7 +27,33 @@ var BackgroundParalax = {
 
     var ratio = element.offsetWidth / element.offsetHeight;
     var bgRatio = image.width/image.height;
+    var value = {left: 0, top: 0}
+    var targetValue = {left: 0, top: 0}
+    var animate = false;
 
+    var raf = function(){
+      value = {
+        left: value.left + (targetValue.left - value.left)*0.1,
+        top: value.top + (targetValue.top - value.top)*0.1
+      }
+
+      element.style.backgroundPosition = (50 + ease(value.left)*4) + "%" + (50 + ease(value.top)*4) + "%";
+
+      if( Math.abs(value.left - targetValue.left) < 0.001 && Math.abs(value.top - targetValue.top) < 0.001 ) {
+        animate = false
+        return;
+      }
+      
+      requestAnimationFrame(raf);
+    }
+
+    var start = function(){
+      if(animate){
+        return; 
+      }
+      animate = true; 
+      requestAnimationFrame(raf);
+    }
 
     function ease(t) {
       return -t * (t - 2.0);
@@ -40,16 +67,18 @@ var BackgroundParalax = {
       var scale = 1.3;
       var size = ratio > bgRatio ? "130% auto" : "auto 130%"  
             
-      var value = {
+      targetValue = {
         left: (e.clientX - element.offsetWidth/2) / (element.offsetWidth/2),
         top: (e.clientY + window.scrollTop - element.offsetHeight/2) / (element.offsetHeight/2)
       }
-      
-
-
+    
       element.style.backgroundSize = size
-      element.style.backgroundPosition = (50 + ease(value.left)*1) + "%" + (50 + ease(value.top)*1) + "%";
+      start();
+      //requestAnimationFrame(raf);
     })
+
+   
+    raf();
   },
 
   initEvents: function() {

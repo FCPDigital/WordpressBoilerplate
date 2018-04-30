@@ -1,9 +1,13 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
-"use strict";
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+var _raf = require("./../utils/raf.js");
+
+var _raf2 = _interopRequireDefault(_raf);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var BackgroundParalax = {
 
@@ -32,6 +36,33 @@ var BackgroundParalax = {
 
     var ratio = element.offsetWidth / element.offsetHeight;
     var bgRatio = image.width / image.height;
+    var value = { left: 0, top: 0 };
+    var targetValue = { left: 0, top: 0 };
+    var animate = false;
+
+    var raf = function raf() {
+      value = {
+        left: value.left + (targetValue.left - value.left) * 0.1,
+        top: value.top + (targetValue.top - value.top) * 0.1
+      };
+
+      element.style.backgroundPosition = 50 + ease(value.left) * 4 + "%" + (50 + ease(value.top) * 4) + "%";
+
+      if (Math.abs(value.left - targetValue.left) < 0.001 && Math.abs(value.top - targetValue.top) < 0.001) {
+        animate = false;
+        return;
+      }
+
+      (0, _raf2.default)(raf);
+    };
+
+    var start = function start() {
+      if (animate) {
+        return;
+      }
+      animate = true;
+      (0, _raf2.default)(raf);
+    };
 
     function ease(t) {
       return -t * (t - 2.0);
@@ -45,14 +76,17 @@ var BackgroundParalax = {
       var scale = 1.3;
       var size = ratio > bgRatio ? "130% auto" : "auto 130%";
 
-      var value = {
+      targetValue = {
         left: (e.clientX - element.offsetWidth / 2) / (element.offsetWidth / 2),
         top: (e.clientY + window.scrollTop - element.offsetHeight / 2) / (element.offsetHeight / 2)
       };
 
       element.style.backgroundSize = size;
-      element.style.backgroundPosition = 50 + ease(value.left) * 1 + "%" + (50 + ease(value.top) * 1) + "%";
+      start();
+      //requestAnimationFrame(raf);
     });
+
+    raf();
   },
 
   initEvents: function initEvents() {
@@ -70,9 +104,7 @@ var BackgroundParalax = {
 
 exports.default = BackgroundParalax;
 
-},{}],2:[function(require,module,exports){
-"use strict";
-
+},{"./../utils/raf.js":8}],2:[function(require,module,exports){
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -154,15 +186,16 @@ Carousel.prototype = {
 exports.default = Carousel;
 
 },{}],3:[function(require,module,exports){
-"use strict";
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+var _html = require("./../utils/html.js");
+
 var ShadowFlow = {
 
   update: function update(element, event) {
-    var position = offsetTop(element);
+    var position = (0, _html.offsetTop)(element);
     position.left += element.offsetWidth / 2;
     position.top += element.offsetHeight / 2;
 
@@ -193,9 +226,7 @@ var ShadowFlow = {
 
 exports.default = ShadowFlow;
 
-},{}],4:[function(require,module,exports){
-"use strict";
-
+},{"./../utils/html.js":7}],4:[function(require,module,exports){
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -236,8 +267,6 @@ Thumbnails.prototype = {
 exports.default = Thumbnails;
 
 },{}],5:[function(require,module,exports){
-"use strict";
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -300,8 +329,6 @@ exports.Toggler = Toggler;
 exports.default = TogglerManager;
 
 },{}],6:[function(require,module,exports){
-"use strict";
-
 var _carousel = require("./components/carousel.js");
 
 var _carousel2 = _interopRequireDefault(_carousel);
@@ -324,6 +351,46 @@ var _shadowFlow2 = _interopRequireDefault(_shadowFlow);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function manageHomeCarousel() {
+  if (document.querySelector("#home-carousel")) {
+    var sectionCarousel = document.querySelector("#anchor-2");
+
+    var thumbnails = new _thumbnails2.default(sectionCarousel.querySelector(".thumbnails"));
+    var carousel = new _carousel2.default(document.querySelector("#home-carousel"));
+    carousel.onChange = function (current, last, rank) {
+      //last.querySelector(".btn-morph-cross").click();
+      var toggler = _toggler2.default.findByElement(last.querySelector(".btn-morph-cross"));
+      if (toggler && toggler.element.classList.contains("btn-morph-cross--active")) {
+        toggler.toggle();
+      }
+      thumbnails.current = rank;
+    };
+  }
+}
+
+window.addEventListener("load", function () {
+  manageHomeCarousel();
+  _toggler2.default.init();
+  _backgroundParalax2.default.init();
+  _shadowFlow2.default.init();
+});
+
+},{"./components/backgroundParalax.js":1,"./components/carousel.js":2,"./components/shadowFlow.js":3,"./components/thumbnails.js":4,"./components/toggler.js":5}],7:[function(require,module,exports){
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+Object.defineProperties(window, {
+    scrollTop: {
+        get: function get() {
+            return document.documentElement && document.documentElement.scrollTop || document.body.scrollTop;
+        },
+        set: function set(value) {
+            var scrollTop = document.documentElement && document.documentElement.scrollTop || document.body.scrollTop;
+            scrollTop = value;
+        }
+    }
+});
+
 var offsetTop = function offsetTop(element) {
     var top = 0,
         left = 0;
@@ -339,42 +406,37 @@ var offsetTop = function offsetTop(element) {
     };
 };
 
-Object.defineProperties(window, {
-    scrollTop: {
-        get: function get() {
-            return document.documentElement && document.documentElement.scrollTop || document.body.scrollTop;
-        },
-        set: function set(value) {
-            var scrollTop = document.documentElement && document.documentElement.scrollTop || document.body.scrollTop;
-            scrollTop = value;
-        }
-    }
+exports.offsetTop = offsetTop;
+
+},{}],8:[function(require,module,exports){
+Object.defineProperty(exports, "__esModule", {
+	value: true
 });
 
-function manageHomeCarousel() {
-    if (document.querySelector("#home-carousel")) {
-        var sectionCarousel = document.querySelector("#anchor-2");
+/**
+ * Provides requestAnimationFrame in a cross browser way.
+ * @author paulirish / http://paulirish.com/
+ */
 
-        var thumbnails = new _thumbnails2.default(sectionCarousel.querySelector(".thumbnails"));
-        var carousel = new _carousel2.default(document.querySelector("#home-carousel"));
-        carousel.onChange = function (current, last, rank) {
-            //last.querySelector(".btn-morph-cross").click();
-            var toggler = _toggler2.default.findByElement(last.querySelector(".btn-morph-cross"));
-            if (toggler && toggler.element.classList.contains("btn-morph-cross--active")) {
-                toggler.toggle();
-            }
-            thumbnails.current = rank;
-        };
-    }
+if (!window.requestAnimationFrame) {
+
+	window.requestAnimationFrame = function () {
+
+		return window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || function ( /* function FrameRequestCallback */callback, /* DOMElement Element */element) {
+
+			window.setTimeout(callback, 1000 / 60);
+		};
+	}();
 }
 
-window.addEventListener("load", function () {
-    manageHomeCarousel();
-    _toggler2.default.init();
-    _backgroundParalax2.default.init();
-    _shadowFlow2.default.init();
-});
+if (!window.cancelAnimationFrame) {
+	window.cancelAnimationFrame = function (id) {
+		clearTimeout(id);
+	};
+}
 
-},{"./components/backgroundParalax.js":1,"./components/carousel.js":2,"./components/shadowFlow.js":3,"./components/thumbnails.js":4,"./components/toggler.js":5}]},{},[6])
+exports.default = window.requestAnimationFrame;
+
+},{}]},{},[6])
 
 //# sourceMappingURL=index.js.map

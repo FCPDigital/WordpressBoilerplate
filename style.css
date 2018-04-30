@@ -7137,7 +7137,8 @@ strong {
   padding: 15px; }
   .article p, .widget_text p {
     line-height: 1.7em;
-    margin-bottom: 20px; }
+    margin-bottom: 20px;
+    color: #4d4d4d; }
   .article--card, .widget_text--card {
     max-width: 500px;
     width: 90%;
@@ -7287,6 +7288,9 @@ strong {
     border: 0;
     cursor: pointer;
     position: fixed; }
+    .header__menu-label {
+      font-weight: bold;
+      color: #293d60; }
     .header__menu-img {
       width: 35px; }
       .header__menu-img .rect-1, .header__menu-img .rect-2, .header__menu-img .rect-3 {
@@ -7319,7 +7323,7 @@ strong {
 .footer {
   padding: 32px 0; }
   .footer--dark {
-    background-color: #333; }
+    background-color: #4d4d4d; }
   .footer--light {
     background-color: #F8F8F8; }
 
@@ -7363,12 +7367,15 @@ strong {
         background-color: white;
         color: #293d60; }
 
+.title-4 .indice {
+  font-size: 12px; }
+
 .wpcf7-textarea {
   border: 0 !important;
-  border-bottom: 1px solid #333 !important; }
+  border-bottom: 1px solid #4d4d4d !important; }
 
 .mdc-textfield::after {
-  background-color: #333 !important; }
+  background-color: #4d4d4d !important; }
 
 #cf7md-form .mdc-textfield--invalid:not(.mdc-textfield--focused) .mdc-textfield__label {
   color: black !important; }
@@ -7384,15 +7391,15 @@ strong {
   text-align: center; }
   #cf7md-form .cf7md-submit .wpcf7-submit.mdc-button--primary {
     background-color: white;
-    color: black;
+    color: #293d60;
     letter-spacing: 1px;
-    border: 2px solid black;
+    border: 2px solid #293d60;
     border-radius: 0;
     box-shadow: none;
     box-sizing: content-box;
     transition: .4s; }
     #cf7md-form .cf7md-submit .wpcf7-submit.mdc-button--primary:hover {
-      background-color: black;
+      background-color: #293d60;
       color: white; }
 
 #anchor-2 {

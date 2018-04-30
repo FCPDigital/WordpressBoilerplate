@@ -5,31 +5,7 @@ import {Toggler} from "./components/toggler.js";
 import BackgroundParalax from "./components/backgroundParalax.js";
 import ShadowFlow from "./components/shadowFlow.js";
 
-var offsetTop = function(element) {
-    var top = 0, left = 0;
-    do {
-        top += element.offsetTop  || 0;
-        left += element.offsetLeft || 0;
-        element = element.offsetParent;
-    } while(element);
 
-    return {
-        top: top,
-        left: left
-    };
-};
-
-Object.defineProperties(window, {
-    scrollTop: {
-        get: function() {
-            return (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
-        },
-        set: function(value) {
-            var scrollTop = ((document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop);
-            scrollTop = value;
-        }
-    }
-});
 
 function manageHomeCarousel(){
   if (document.querySelector("#home-carousel")) {
