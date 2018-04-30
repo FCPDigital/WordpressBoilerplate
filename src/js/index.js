@@ -30,4 +30,8 @@ window.addEventListener("load", function(){
   TogglerManager.init();
   BackgroundParalax.init();
   ShadowFlow.init();
+
+  document.querySelectorAll("#main-menu .menu-item").forEach(item => item.addEventListener('click', ()=>{
+    document.querySelector("#main-menu").classList.add("menu--hidden")
+  }))    
 })

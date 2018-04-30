@@ -37,13 +37,13 @@ var BackgroundParalax = {
         top: value.top + (targetValue.top - value.top)*0.1
       }
 
-      element.style.backgroundPosition = (50 + ease(value.left)*4) + "%" + (50 + ease(value.top)*4) + "%";
+      element.style.backgroundPosition = (50 + ease(value.left)*2) + "%" + (50 + ease(value.top)*2) + "%";
 
       if( Math.abs(value.left - targetValue.left) < 0.001 && Math.abs(value.top - targetValue.top) < 0.001 ) {
         animate = false
         return;
       }
-      
+
       requestAnimationFrame(raf);
     }
 
@@ -77,7 +77,6 @@ var BackgroundParalax = {
       //requestAnimationFrame(raf);
     })
 
-   
     raf();
   },
 

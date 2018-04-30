@@ -46,7 +46,7 @@ var BackgroundParalax = {
         top: value.top + (targetValue.top - value.top) * 0.1
       };
 
-      element.style.backgroundPosition = 50 + ease(value.left) * 4 + "%" + (50 + ease(value.top) * 4) + "%";
+      element.style.backgroundPosition = 50 + ease(value.left) * 2 + "%" + (50 + ease(value.top) * 2) + "%";
 
       if (Math.abs(value.left - targetValue.left) < 0.001 && Math.abs(value.top - targetValue.top) < 0.001) {
         animate = false;
@@ -373,6 +373,12 @@ window.addEventListener("load", function () {
   _toggler2.default.init();
   _backgroundParalax2.default.init();
   _shadowFlow2.default.init();
+
+  document.querySelectorAll("#main-menu .menu-item").forEach(function (item) {
+    return item.addEventListener('click', function () {
+      document.querySelector("#main-menu").classList.add("menu--hidden");
+    });
+  });
 });
 
 },{"./components/backgroundParalax.js":1,"./components/carousel.js":2,"./components/shadowFlow.js":3,"./components/thumbnails.js":4,"./components/toggler.js":5}],7:[function(require,module,exports){
